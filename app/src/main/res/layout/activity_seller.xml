@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SellerActivity">
+    <Button
+        android:id="@+id/seller_information"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginBottom="9dp"
+        android:text="商人资料"
+        app:layout_constraintBottom_toTopOf="@+id/title_boundry4"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/selling"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginBottom="8dp"
+        android:text="正卖商品"
+        app:layout_constraintBottom_toTopOf="@+id/title_boundry4"
+        app:layout_constraintStart_toStartOf="@+id/seller_center" />
+
+    <Button
+        android:id="@+id/sold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="31dp"
+        android:layout_marginRight="31dp"
+        android:layout_marginBottom="9dp"
+        android:text="已买商品"
+        app:layout_constraintBottom_toTopOf="@+id/title_boundry4"
+        app:layout_constraintEnd_toEndOf="@+id/title_boundry4" />
+
+    <TextView
+        android:id="@+id/seller_center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="商人中心"
+        android:textSize="30dp"
+        app:layout_constraintEnd_toStartOf="@+id/back2"
+        app:layout_constraintStart_toEndOf="@+id/person_center"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/person_center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="7dp"
+        android:layout_marginLeft="7dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginRight="14dp"
+        android:text="返回个人中心"
+        app:layout_constraintBottom_toTopOf="@+id/title_boundry2"
+        app:layout_constraintEnd_toStartOf="@+id/seller_center"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/back2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:text="返回主界面"
+        app:layout_constraintBottom_toTopOf="@+id/title_boundry2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/seller_center" />
+
+    <TextView
+        android:id="@+id/title_boundry2"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:background="@drawable/boundary2"
+        android:gravity="center"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/seller_center" />
+
+    <TextView
+        android:id="@+id/title_boundry4"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="96dp"
+        android:layout_weight="1"
+        android:background="@drawable/boundary2"
+        android:gravity="center"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/seller_center" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
