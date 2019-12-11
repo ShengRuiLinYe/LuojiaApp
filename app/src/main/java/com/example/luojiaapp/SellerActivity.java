@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -22,6 +23,7 @@ public class SellerActivity extends AppCompatActivity {
     private String name;
     private String phone;
 
+    private static final String TAG = "SellerActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +65,13 @@ public class SellerActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 Item Item = ItemList.get(position);
-                Toast.makeText(SellerActivity.this, Item.getName(), Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(SellerActivity.this, ItemInformation.class);
+                intent.putExtra("ImageId2", Item.getImageId2());
+                intent.putExtra("Price", Item.getPrice());
+                intent.putExtra("Sales", Item.getSales());
+                intent.putExtra("Name",Item.getName());
+                Log.d(TAG, "onItemClick: enter the activity");
+                startActivity(intent);
             }
         });
 
