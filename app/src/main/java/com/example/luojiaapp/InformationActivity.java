@@ -24,7 +24,8 @@ public class InformationActivity extends AppCompatActivity {
         name.setText(account);
         Button back=(Button)findViewById(R.id.back2);
         Button seller=(Button)findViewById(R.id.seller);
-        Button information=(Button)findViewById(R.id.information);
+        Button cart = (Button) findViewById(R.id.shopping_cart);
+        Button purchased = (Button) findViewById(R.id.purchased);
         back.setOnClickListener(new View.OnClickListener() {//点击登录按钮触发效果
             @Override
             public void onClick(View v) {
@@ -36,6 +37,20 @@ public class InformationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(InformationActivity.this, SellerActivity.class);
+                startActivity(intent);
+            }
+        });
+        cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(InformationActivity.this, ShoppingCartActivity.class);
+                startActivity(intent);
+            }
+        });
+        purchased.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(InformationActivity.this, ItemBoughtActivity.class);
                 startActivity(intent);
             }
         });
