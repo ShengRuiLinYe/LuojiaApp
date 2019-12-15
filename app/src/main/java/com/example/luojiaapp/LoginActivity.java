@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.MissingFormatArgumentException;
+import com.example.luojiaapp.LoginStatus;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -29,7 +30,9 @@ public class LoginActivity extends AppCompatActivity {
                 String password1=password.getText().toString();
                 if(judgePassword(account1,password1)==1)
                 {
-                    Save.saveUserInfo(LoginActivity.this,"account_flag",account1);
+                    LoginStatus.loggedin = true;
+                    LoginStatus.userid = account1;
+                    LoginStatus.username = "";      // TODO 从服务器获取用户名
                     Toast.makeText(LoginActivity.this,"登录成功!",Toast.LENGTH_LONG).show();
                     Intent intent=new Intent(LoginActivity.this, PersonalCenterActivity.class);
                     startActivity(intent);
