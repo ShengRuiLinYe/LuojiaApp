@@ -130,8 +130,8 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="5dp"
         android:gravity="center"
-        android:textSize="25dp"
         android:text="联系方式:"
+        android:textSize="25dp"
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/SellerName" />
@@ -142,15 +142,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="24dp"
         android:gravity="center"
         android:text=""
         android:textSize="25dp"
         android:visibility="visible"
         app:layout_constraintStart_toEndOf="@+id/SellerPhone"
-        app:layout_constraintTop_toTopOf="@+id/seller_name" />
+        app:layout_constraintTop_toTopOf="@+id/SellerPhone" />
 
     <TextView
         android:id="@+id/Department"
@@ -161,8 +158,8 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="5dp"
         android:gravity="center"
-        android:textSize="25dp"
         android:text="学部:"
+        android:textSize="25dp"
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/SellerPhone" />
@@ -173,15 +170,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="24dp"
         android:gravity="center"
         android:text=""
         android:textSize="25dp"
         android:visibility="visible"
-        app:layout_constraintStart_toEndOf="@+id/seller_phone"
-        app:layout_constraintTop_toTopOf="@+id/SellerPhone" />
+        app:layout_constraintStart_toEndOf="@+id/Department"
+        app:layout_constraintTop_toTopOf="@+id/Department" />
 
     <TextView
         android:id="@+id/School"
@@ -204,15 +198,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="24dp"
         android:gravity="center"
         android:text=""
         android:textSize="25dp"
         android:visibility="visible"
-        app:layout_constraintStart_toEndOf="@+id/department"
-        app:layout_constraintTop_toTopOf="@+id/Department" />
+        app:layout_constraintStart_toEndOf="@+id/School"
+        app:layout_constraintTop_toTopOf="@+id/School" />
 
     <TextView
         android:id="@+id/Grade"
@@ -235,15 +226,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="24dp"
         android:gravity="center"
         android:text=""
         android:textSize="25dp"
         android:visibility="visible"
-        app:layout_constraintStart_toEndOf="@+id/school"
-        app:layout_constraintTop_toTopOf="@+id/School" />
+        app:layout_constraintStart_toEndOf="@+id/Grade"
+        app:layout_constraintTop_toTopOf="@+id/Grade" />
 
     <ListView
         android:id="@+id/list_view_seller"
