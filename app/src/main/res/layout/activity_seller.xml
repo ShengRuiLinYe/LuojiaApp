@@ -99,7 +99,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="24dp"
         android:gravity="center"
-        android:text="商家名称："
+        android:text="姓名:"
         android:textSize="25dp"
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
@@ -131,7 +131,7 @@
         android:layout_marginTop="5dp"
         android:gravity="center"
         android:textSize="25dp"
-        android:text="商家电话："
+        android:text="联系方式:"
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/SellerName" />
@@ -151,6 +151,99 @@
         android:visibility="visible"
         app:layout_constraintStart_toEndOf="@+id/SellerPhone"
         app:layout_constraintTop_toTopOf="@+id/seller_name" />
+
+    <TextView
+        android:id="@+id/Department"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:textSize="25dp"
+        android:text="学部:"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/SellerPhone" />
+
+
+    <TextView
+        android:id="@+id/department"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="24dp"
+        android:gravity="center"
+        android:text=""
+        android:textSize="25dp"
+        android:visibility="visible"
+        app:layout_constraintStart_toEndOf="@+id/seller_phone"
+        app:layout_constraintTop_toTopOf="@+id/SellerPhone" />
+
+    <TextView
+        android:id="@+id/School"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:textSize="25dp"
+        android:text="院系:"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Department" />
+
+
+    <TextView
+        android:id="@+id/school"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="24dp"
+        android:gravity="center"
+        android:text=""
+        android:textSize="25dp"
+        android:visibility="visible"
+        app:layout_constraintStart_toEndOf="@+id/department"
+        app:layout_constraintTop_toTopOf="@+id/Department" />
+
+    <TextView
+        android:id="@+id/Grade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:textSize="25dp"
+        android:text="年级:"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/School" />
+
+
+    <TextView
+        android:id="@+id/grade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="24dp"
+        android:gravity="center"
+        android:text=""
+        android:textSize="25dp"
+        android:visibility="visible"
+        app:layout_constraintStart_toEndOf="@+id/school"
+        app:layout_constraintTop_toTopOf="@+id/School" />
 
     <ListView
         android:id="@+id/list_view_seller"

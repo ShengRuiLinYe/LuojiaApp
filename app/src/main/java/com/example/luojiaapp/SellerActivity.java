@@ -45,16 +45,12 @@ public class SellerActivity extends AppCompatActivity {
             }
         });
 
-        final TextView SellerName = (TextView)findViewById(R.id.SellerName);
-        final TextView seller_name = (TextView)findViewById(R.id.seller_name);
-        final TextView SellerPhone = (TextView)findViewById(R.id.SellerPhone);
-        final TextView seller_phone = (TextView)findViewById(R.id.seller_phone);
-        Button seller_information = (Button)findViewById(R.id.seller_information);
-        Button selling = (Button)findViewById(R.id.selling);
+        final List<TextView> infos = new ArrayList<>();
+        initInfos(infos);
 
-        init_information();
-        seller_name.setText(name);
-        seller_phone.setText(phone);
+        Button selling = (Button)findViewById(R.id.selling);
+        final Button seller_information = (Button) findViewById(R.id.seller_information);
+
 
         initItems();
         ItemAdapter adapter = new ItemAdapter(SellerActivity.this, R.layout.item, ItemList);
@@ -78,10 +74,9 @@ public class SellerActivity extends AppCompatActivity {
         seller_information.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                SellerName.setVisibility(View.VISIBLE);
-                seller_name.setVisibility(View.VISIBLE);
-                SellerPhone.setVisibility(View.VISIBLE);
-                seller_phone.setVisibility(View.VISIBLE);
+                for (TextView t : infos) {
+                    t.setVisibility(View.VISIBLE);
+                }
                 listView.setVisibility(View.GONE);
             }
         });
@@ -89,19 +84,31 @@ public class SellerActivity extends AppCompatActivity {
         selling.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SellerName.setVisibility(View.GONE);
-                seller_name.setVisibility(View.GONE);
-                SellerPhone.setVisibility(View.GONE);
-                seller_phone.setVisibility(View.GONE);
+                for (TextView t : infos) {
+                    t.setVisibility(View.GONE);
+                }
                 listView.setVisibility(View.VISIBLE);
             }
         });
     }
 
-    private void init_information() {
-        //之后应该是从数据库中获取相关信息
-        name = "123";
-        phone = "123456789";
+    // 从登陆信息初始化商人信息的控件列表
+    private void initInfos(final List<TextView> infos) {
+        infos.add((TextView)findViewById(R.id.SellerName));
+        infos.add((TextView)findViewById(R.id.SellerPhone));
+        infos.add((TextView)findViewById(R.id.Department));
+        infos.add((TextView)findViewById(R.id.School));
+        infos.add((TextView)findViewById(R.id.Grade));
+        infos.add((TextView)findViewById(R.id.seller_name));
+        infos.get(infos.size() - 1).setText(LoginStatus.realname);
+        infos.add((TextView)findViewById(R.id.seller_phone));
+        infos.get(infos.size() - 1).setText(LoginStatus.contact);
+        infos.add((TextView)findViewById(R.id.department));
+        infos.get(infos.size() - 1).setText(LoginStatus.department);
+        infos.add((TextView)findViewById(R.id.school));
+        infos.get(infos.size() - 1).setText(LoginStatus.school);
+        infos.add((TextView)findViewById(R.id.grade));
+        infos.get(infos.size() - 1).setText(LoginStatus.grade);
     }
 
 
