@@ -27,6 +27,18 @@
         app:layout_constraintBottom_toTopOf="@+id/title_boundry4"
         app:layout_constraintStart_toStartOf="@+id/seller_center" />
 
+    <Button
+        android:id="@+id/add_selling"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="添加商品"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintBottom_toTopOf="@+id/title_boundry4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+
     <TextView
         android:id="@+id/seller_center"
         android:layout_width="wrap_content"

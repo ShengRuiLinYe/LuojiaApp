@@ -30,6 +30,7 @@ public class SellerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_seller);
         Button back_to_center=(Button)findViewById(R.id.person_center);
         Button back_to_origin=(Button)findViewById(R.id.back2);
+        Button add_selling = (Button)findViewById(R.id.add_selling);
         back_to_center.setOnClickListener(new View.OnClickListener() {//点击登录按钮触发效果
             @Override
             public void onClick(View v) {
@@ -44,6 +45,15 @@ public class SellerActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        add_selling.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SellerActivity.this, AddSell.class);
+                startActivity(intent);
+            }
+        });
+
 
         final List<TextView> infos = new ArrayList<>();
         initInfos(infos);
