@@ -1,9 +1,12 @@
 package com.example.luojiaapp;
 
+import android.graphics.Bitmap;
+
 public class Item {
     private String name;
     private int imageId;
     private int imageId2;
+    private Bitmap bitmap;
     private int price;
     private int sales;
     private int category;
@@ -41,6 +44,7 @@ public class Item {
     public int getPrice(){return price;}
     public int getSales(){return sales;}
     public int getCategory() {return category;}
+    public Bitmap getBitmap() {return bitmap;}
 
     public void setName(String name){this.name = name;}
     public void setPrice(int price) {this.price = price;}
@@ -48,5 +52,6 @@ public class Item {
     public void setCategory(int category) {this.category = category;}
     public void setImageId(int imageId) {this.imageId = imageId;}
     public void setImageId2(int imageId2) {this.imageId2 = imageId2;}
+    public void setBitmap(Bitmap bitmap) {this.bitmap = bitmap;}
 
 }
