@@ -49,14 +49,14 @@ public class AddSell extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_sell);
-        Button button_back = (Button)findViewById(R.id.add_back);
-        Button button_add = (Button)findViewById(R.id.add_add);
+        Button button_back = (Button) findViewById(R.id.add_back);
+        Button button_add = (Button) findViewById(R.id.add_add);
 
-        final EditText editText_name = (EditText)findViewById(R.id.add_name);
-        final EditText editText_price = (EditText)findViewById(R.id.add_price);
-        final EditText editText_amount = (EditText)findViewById(R.id.add_amount);
+        final EditText editText_name = (EditText) findViewById(R.id.add_name);
+        final EditText editText_price = (EditText) findViewById(R.id.add_price);
+        final EditText editText_amount = (EditText) findViewById(R.id.add_amount);
 
-        RadioGroup radioGroup_cate = (RadioGroup)findViewById(R.id.add_radio_group);
+        RadioGroup radioGroup_cate = (RadioGroup) findViewById(R.id.add_radio_group);
         radioGroup_cate.setOnCheckedChangeListener(radioGrouplisten);
 
         button_add.setOnClickListener(new View.OnClickListener() {
@@ -68,26 +68,28 @@ public class AddSell extends AppCompatActivity {
                     price = Integer.parseInt(editText_price.getText().toString());
                     amount = Integer.parseInt(editText_amount.getText().toString());
 
-                    if(bitmap==null) {
+                    if (bitmap == null) {
                         Toast.makeText(AddSell.this, "请上传图片", Toast.LENGTH_SHORT).show();
                         return;
                     }
 
-                    Item item = new Item(editText_name.getText().toString(),0,0,
-                            price,amount,category);
+                    Item item = new Item(editText_name.getText().toString(), 0, 0,
+                            price, amount, category);
                     item.setBitmap(bitmap);
 
-                    //还需要把item真正添加到
-                    //
-                    //
+                    // TODO 或许可以加个进度条之类的
+                    if (ServerConnection.sellerAddItem(item)) {
+                        Toast.makeText(AddSell.this, "添加成功", Toast.LENGTH_LONG).show();
+                        finish();
+                    } else {
+                        Toast.makeText(AddSell.this, "网络异常", Toast.LENGTH_LONG).show();
 
-                    Toast.makeText(AddSell.this,"添加成功！",Toast.LENGTH_LONG).show();
-                    finish();
-                }
-                catch (NumberFormatException e){
-                    Toast.makeText(AddSell.this,"价格和库存应该是整数",Toast.LENGTH_LONG).show();
+                    }
+                } catch (NumberFormatException e) {
+                    Toast.makeText(AddSell.this, "价格和库存应该是整数", Toast.LENGTH_LONG).show();
                     return;
-                };
+                }
+                ;
             }
         });
 
@@ -99,15 +101,15 @@ public class AddSell extends AppCompatActivity {
         });
 
         //申请读取权限
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(PERMISSION_WRITE_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(new String[]{PERMISSION_WRITE_STORAGE}, REQUEST_PERMISSION_CODE);
             }
         }
 
-        Button button_takephoto = (Button)findViewById(R.id.bt_take_photo);
-        Button button_selectfromalbum = (Button)findViewById(R.id.bt_choose_from_album);
-        mPicture = (ImageView)findViewById(R.id.iv_picture);
+        Button button_takephoto = (Button) findViewById(R.id.bt_take_photo);
+        Button button_selectfromalbum = (Button) findViewById(R.id.bt_choose_from_album);
+        mPicture = (ImageView) findViewById(R.id.iv_picture);
 
         button_takephoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,7 +132,7 @@ public class AddSell extends AppCompatActivity {
         @Override
         public void onCheckedChanged(RadioGroup group, int checkedId) {
             int id = group.getCheckedRadioButtonId();
-            switch (id){
+            switch (id) {
                 case R.id.add_cat_book:
                     category = Item.book;
                     break;
@@ -143,7 +145,7 @@ public class AddSell extends AppCompatActivity {
                 case R.id.add_cat_other:
                     category = Item.other;
                 default:
-                    category =Item.other;
+                    category = Item.other;
                     break;
             }
         }
@@ -180,11 +182,10 @@ public class AddSell extends AppCompatActivity {
                 startActivityForResult(takePhotoIntent, TAKE_PHOTO);//打开相机
                 Log.d(TAG, "takePhoto: czy 打开相机");
             }
-        }else {
+        } else {
             Toast.makeText(this, "没有相机", Toast.LENGTH_SHORT).show();
         }
     }
-
 
 
     /**
@@ -257,6 +258,7 @@ public class AddSell extends AppCompatActivity {
     /**
      * 4.4版本以下对返回的图片Uri的处理：
      * 就是从返回的Intent中取出图片Uri，直接显示就好
+     *
      * @param data 调用系统相册之后返回的Uri
      */
     private void handleImageBeforeKitKat(Intent data) {
@@ -268,6 +270,7 @@ public class AddSell extends AppCompatActivity {
     /**
      * 4.4版本以上对返回的图片Uri的处理：
      * 返回的Uri是经过封装的，要进行处理才能得到真实路径
+     *
      * @param data 调用系统相册之后返回的Uri
      */
     @TargetApi(19)
@@ -301,13 +304,12 @@ public class AddSell extends AppCompatActivity {
     private void displayImage(String imagePath) {
         if (imagePath != null) {
             bitmap = BitmapFactory.decodeFile(imagePath);
-            if(bitmap==null){
+            if (bitmap == null) {
                 Log.d(TAG, "czy: can't decode");
-            }
-            else {
+            } else {
                 mPicture.setImageBitmap(bitmap);
             }
-            Toast.makeText(this, "path:"+imagePath, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "path:" + imagePath, Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "failed to get image", Toast.LENGTH_SHORT).show();
         }
@@ -315,7 +317,8 @@ public class AddSell extends AppCompatActivity {
 
     /**
      * 将Uri转化为路径
-     * @param uri 要转化的Uri
+     *
+     * @param uri       要转化的Uri
      * @param selection 4.4之后需要解析Uri，因此需要该参数
      * @return 转化之后的路径
      */
