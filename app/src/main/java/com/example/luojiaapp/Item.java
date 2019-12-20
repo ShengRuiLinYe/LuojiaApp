@@ -16,6 +16,14 @@ public class Item {
     final static int life = 3;
     final static int other = 0;
 
+    public Item(String name, int price, int amount, int category, Bitmap bitmap) {
+        this.name = name;
+        this.price = price;
+        this.amount = amount;
+        this.category = category;
+        this.bitmap = bitmap;
+    }
+
     public Item(String name, int imageId) {
         this.name = name;
         this.imageId = imageId;
