@@ -25,6 +25,9 @@ public class SellerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seller);
+
+        ServerConnection.getSellerItems(ItemList);  // 从服务器获取商品
+
         Button back_to_center=(Button)findViewById(R.id.person_center);
         Button back_to_origin=(Button)findViewById(R.id.back2);
         Button add_selling = (Button)findViewById(R.id.add_selling);
@@ -59,7 +62,6 @@ public class SellerActivity extends AppCompatActivity {
         final Button seller_information = (Button) findViewById(R.id.seller_information);
 
 
-        initItems();
         ItemAdapter adapter = new ItemAdapter(SellerActivity.this, R.layout.item, ItemList);
         final ListView listView = (ListView) findViewById(R.id.list_view_seller);
         listView.setAdapter(adapter);
@@ -67,14 +69,8 @@ public class SellerActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                Item Item = ItemList.get(position);
-                Intent intent=new Intent(SellerActivity.this, ItemInformation.class);
-                intent.putExtra("ImageId2", Item.getImageId2());
-                intent.putExtra("Price", Item.getPrice());
-                intent.putExtra("Sales", Item.getAmount());
-                intent.putExtra("Name",Item.getName());
-                Log.d(TAG, "onItemClick: enter the activity");
-                startActivity(intent);
+                ItemInformation.item = ItemList.get(position);  // 设置要显示的 item
+                startActivity(new Intent(SellerActivity.this, ItemInformation.class));
             }
         });
 
@@ -116,15 +112,5 @@ public class SellerActivity extends AppCompatActivity {
         infos.get(infos.size() - 1).setText(LoginStatus.school);
         infos.add((TextView)findViewById(R.id.grade));
         infos.get(infos.size() - 1).setText(LoginStatus.grade);
-    }
-
-
-    private void initItems() {
-        for (int i = 0; i < 2; i++) {
-            Item apple = new Item("Apple", R.drawable.apple_pic);
-            ItemList.add(apple);
-            Item banana = new Item("Banana", R.drawable.banana_pic);
-            ItemList.add(banana);
-        }
     }
 }
