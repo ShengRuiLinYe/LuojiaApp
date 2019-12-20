@@ -5,6 +5,7 @@
 package com.example.luojiaapp;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
@@ -15,6 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ServerConnection {
+//    private static String serverIP = "10.131.168.166";
     private static String serverIP = "10.131.138.53";
     private static int serverPort = 12345;
 
@@ -293,10 +295,79 @@ public class ServerConnection {
         thread.start();
         try {
             thread.join();
+        } catch (Exception e) {
         }
-        catch (Exception e) {}
 
         return ret.size() == 1 && ret.get(0);
+    }
+
+    private static Item getAnItem(DataInputStream in, DataOutputStream out, byte[] buf) throws Exception {
+        // 这一条信息其实没有意义, 本身轮到 client 发送一条消息了而已
+        out.write("get an item".getBytes("utf-8"));
+
+        // 服务器发送商品基本信息, "%s;%s;%s;%s" 商品名称;商品价格;商品数量;商品类型编号
+        Arrays.fill(buf, (byte) 0);
+        in.read(buf);
+        String[] infos = (new String(buf, "utf-8")).trim().split(";");
+
+        // 无意义的信息
+        out.write("get an item".getBytes("utf-8"));
+
+        // 服务器发送该商品的图片的字节大小
+        Arrays.fill(buf, (byte) 0);
+        in.read(buf);
+        int size = Integer.parseInt((new String(buf, "utf-8")).trim());
+        byte[] bytes = new byte[size];
+
+        for (int i = 0; i < size; i += 1024) {
+            out.write("getting image".getBytes("utf-8"));
+            in.read(bytes, i, Math.min(1024, size - i));
+        }
+
+        return new Item(infos[0], Integer.parseInt(infos[1]),
+                Integer.parseInt(infos[2]), Integer.parseInt(infos[3]),
+                PicProcess.bytes2bitmap(bytes));
+    }
+
+    /**
+     * 向服务器请求, 获取该用户的所有商品
+     *
+     * @param itemList 保存结果的列表
+     */
+    public static void getSellerItems(final List<Item> itemList) {
+        Runnable gsi = new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Socket socket = new Socket(serverIP, serverPort);
+                    DataInputStream in = new DataInputStream(socket.getInputStream());
+                    DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+                    byte[] buf = new byte[1024];
+
+                    // 0. 发送控制信息: get seller item
+                    out.write("get seller item".getBytes("utf-8"));
+                    Arrays.fill(buf, (byte) 0);
+                    in.read(buf);
+
+                    // 1. 发送 userid, 然后服务器返回该卖家有多少商品
+                    out.write(LoginStatus.userid.getBytes("utf-8"));
+                    Arrays.fill(buf, (byte) 0);
+                    in.read(buf);
+
+                    int cnt = Integer.parseInt((new String(buf, "utf-8")).trim());
+
+                    // 接收这 cnt 个商品
+                    for (int i = 0; i < cnt; i++) {
+                        itemList.add(getAnItem(in, out, buf));
+                    }
+
+                } catch (Exception e) {
+                }
+            }
+        };
+
+        Thread thread = new Thread(gsi);
+        thread.start();
     }
 }
 
@@ -305,5 +376,9 @@ class PicProcess {
         ByteArrayOutputStream s = new ByteArrayOutputStream();
         bm.compress(Bitmap.CompressFormat.PNG, 100, s);
         return s.toByteArray();
+    }
+
+    public static Bitmap bytes2bitmap(byte[] bytes) {
+        return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
     }
 }
