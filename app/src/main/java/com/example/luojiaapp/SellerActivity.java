@@ -10,9 +10,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,7 +71,7 @@ public class SellerActivity extends AppCompatActivity {
                 Intent intent=new Intent(SellerActivity.this, ItemInformation.class);
                 intent.putExtra("ImageId2", Item.getImageId2());
                 intent.putExtra("Price", Item.getPrice());
-                intent.putExtra("Sales", Item.getSales());
+                intent.putExtra("Sales", Item.getAmount());
                 intent.putExtra("Name",Item.getName());
                 Log.d(TAG, "onItemClick: enter the activity");
                 startActivity(intent);
