@@ -31,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
                     LoginStatus.loggedin = true;
                     LoginStatus.userid = userid;
                     LoginStatus.username = username;
-                    Toast.makeText(LoginActivity.this, "登录成功!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, "登录成功: [" + username + "]", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(LoginActivity.this, PersonalCenterActivity.class);
                     startActivity(intent);
                 } else {
