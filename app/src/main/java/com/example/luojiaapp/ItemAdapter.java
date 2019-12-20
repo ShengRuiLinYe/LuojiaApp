@@ -35,7 +35,13 @@ public class ItemAdapter extends ArrayAdapter<Item> {
             view = convertView;
             viewHolder = (ViewHolder) view.getTag(); // 重新获取ViewHolder
         }
-        viewHolder.ItemImage.setImageResource(Item.getImageId());
+
+        if (Item.getImageId() > 0) {
+            viewHolder.ItemImage.setImageResource(Item.getImageId());
+        } else {
+            viewHolder.ItemImage.setImageBitmap(Item.getBitmap());
+        }
+
         viewHolder.ItemName.setText(Item.getName());
         return view;
     }
