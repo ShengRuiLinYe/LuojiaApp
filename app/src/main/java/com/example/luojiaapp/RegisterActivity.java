@@ -37,7 +37,7 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this, "两次密码输入不一致!", Toast.LENGTH_LONG).show();
                 } else {
                     String userid = ServerConnection.registerCommonUser(username, pass1);
-                    if (userid != null) {
+                    if (userid != null && userid.length() == 5) {  // 规定服务器返回的用户 id 一定是五位
                         Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_LONG).show();
                         // 注册成功则自动登陆
                         LoginStatus.loggedin = true;
@@ -46,7 +46,7 @@ public class RegisterActivity extends AppCompatActivity {
                         Intent intent = new Intent(RegisterActivity.this, RegisterSucActivity.class);
                         startActivity(intent);
                     } else {
-                        Toast.makeText(RegisterActivity.this, "网络异常", Toast.LENGTH_LONG).show();
+                        Toast.makeText(RegisterActivity.this, "网络或服务器异常", Toast.LENGTH_LONG).show();
                     }
                 }
             }
