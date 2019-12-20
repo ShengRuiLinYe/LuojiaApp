@@ -6,14 +6,16 @@ package com.example.luojiaapp;
 
 import android.provider.ContactsContract;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.net.*;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ServerConnection {
-    private static String serverIP = "10.129.11.41";
+    private static String serverIP = "10.131.168.166";
     private static int serverPort = 12345;
 
     /**
@@ -32,11 +34,20 @@ public class ServerConnection {
                     Socket socket = new Socket(serverIP, serverPort);
                     DataInputStream in = new DataInputStream(socket.getInputStream());
                     DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-                    out.writeUTF("verify password");
-                    out.writeUTF(userid);
-                    out.writeUTF(password);
-                    String username = in.readUTF();
-                    if (!"?".equals(username)) {  // 要求用户名不为单个问号
+                    byte[] buf = new byte[1024];
+
+                    out.write("verify password".getBytes("utf-8"));
+                    Arrays.fill(buf, (byte)0);
+                    in.read(buf);
+                    out.write(userid.getBytes("utf-8"));
+                    Arrays.fill(buf, (byte)0);
+                    in.read(buf);
+                    out.write(password.getBytes("utf-8"));
+                    Arrays.fill(buf, (byte)0);
+                    in.read(buf);
+
+                    String username = (new String(buf, "utf-8")).trim();
+                    if (username != null && username.indexOf("?") < 0) {  // 要求用户名不含问号
                         ret.clear();
                         ret.add(username);
                     }
@@ -76,11 +87,21 @@ public class ServerConnection {
                     Socket socket = new Socket(serverIP, serverPort);
                     DataInputStream in = new DataInputStream(socket.getInputStream());
                     DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-                    out.writeUTF("register common user");
-                    out.writeUTF(username);
-                    out.writeUTF(password);
-                    String userid = in.readUTF();
-                    if (!"?".equals(userid)) {
+                    byte[] buf = new byte[1024];
+
+                    out.write("register common user".getBytes("utf-8"));
+                    Arrays.fill(buf, (byte)0);
+                    in.read(buf);
+                    out.write(username.getBytes("utf-8"));
+                    Arrays.fill(buf, (byte)0);
+                    in.read(buf);
+                    out.write(password.getBytes("utf-8"));
+                    Arrays.fill(buf, (byte)0);
+                    in.read(buf);
+
+                    String userid = (new String(buf, "utf-8")).trim();
+
+                    if (userid != null && userid.indexOf("?") < 0) {  // 要求用户名不含问号
                         ret.clear();
                         ret.add(userid);
                     }
@@ -123,10 +144,17 @@ public class ServerConnection {
                     Socket socket = new Socket(serverIP, serverPort);
                     DataInputStream in = new DataInputStream(socket.getInputStream());
                     DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-                    out.writeUTF("get seller info");
-                    out.writeUTF(LoginStatus.userid);
-                    String info = in.readUTF();
-                    if (!"?".equals(info)) {
+                    byte[] buf = new byte[1024];
+
+                    out.write("get seller info".getBytes("utf-8"));
+                    Arrays.fill(buf, (byte)0);
+                    in.read(buf);
+                    out.write(LoginStatus.userid.getBytes("utf-8"));
+                    Arrays.fill(buf, (byte)0);
+                    in.read(buf);
+
+                    String info = (new String(buf, "utf-8")).trim();
+                    if (info != null && info.indexOf("?") < 0) {  // 要求用户名不含问号
                         ret.clear();
                         ret.add(info);
                     }
@@ -166,10 +194,19 @@ public class ServerConnection {
                     Socket socket = new Socket(serverIP, serverPort);
                     DataInputStream in = new DataInputStream(socket.getInputStream());
                     DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-                    out.writeUTF("register seller");
-                    out.writeUTF(LoginStatus.userid);
-                    out.writeUTF(sellerinfo);
-                    String res = in.readUTF();
+                    byte[] buf = new byte[1024];
+
+                    out.write("register seller".getBytes("utf-8"));
+                    Arrays.fill(buf, (byte)0);
+                    in.read(buf);
+                    out.write(LoginStatus.userid.getBytes("utf-8"));
+                    Arrays.fill(buf, (byte)0);
+                    in.read(buf);
+                    out.write(sellerinfo.getBytes("utf-8"));
+                    Arrays.fill(buf, (byte)0);
+                    in.read(buf);
+
+                    String res = (new String(buf, "utf-8")).trim();
                     ret.clear();
                     ret.add("true".equalsIgnoreCase(res));
                 } catch (Exception e) {
