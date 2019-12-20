@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         final EditText search_name=(EditText)findViewById(R.id.search);//存储商品名字
-        initItems(); // 初始化水果数据
+        ServerConnection.getRecommendedItems(ItemList); // 初始化商品数据
         ItemAdapter adapter = new ItemAdapter(MainActivity.this, R.layout.item, ItemList);
         ListView listView = (ListView) findViewById(R.id.list_view);
         listView.setAdapter(adapter);
@@ -44,8 +44,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                Item Item = ItemList.get(position);
-                Toast.makeText(MainActivity.this, Item.getName(), Toast.LENGTH_SHORT).show();
+                ItemInformation.item = ItemList.get(position);  // 设置要显示的 item
+                startActivity(new Intent(MainActivity.this, ItemInformation.class));
             }
         });
         button_login.setOnClickListener(new View.OnClickListener() {//点击登录按钮触发效果
@@ -79,30 +79,5 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    private void initItems() {
-        for (int i = 0; i < 2; i++) {
-            Item apple = new Item("Apple", R.drawable.apple_pic);
-            ItemList.add(apple);
-            Item banana = new Item("Banana", R.drawable.banana_pic);
-            ItemList.add(banana);
-            Item orange = new Item("Orange", R.drawable.orange_pic);
-            ItemList.add(orange);
-            Item watermelon = new Item("Watermelon", R.drawable.watermelon_pic);
-            ItemList.add(watermelon);
-            Item pear = new Item("Pear", R.drawable.pear_pic);
-            ItemList.add(pear);
-            Item grape = new Item("Grape", R.drawable.grape_pic);
-            ItemList.add(grape);
-            Item pineapple = new Item("Pineapple", R.drawable.pineapple_pic);
-            ItemList.add(pineapple);
-            Item strawberry = new Item("Strawberry", R.drawable.strawberry_pic);
-            ItemList.add(strawberry);
-            Item cherry = new Item("Cherry", R.drawable.cherry_pic);
-            ItemList.add(cherry);
-            Item mango = new Item("Mango", R.drawable.mango_pic);
-            ItemList.add(mango);
-        }
     }
 }
