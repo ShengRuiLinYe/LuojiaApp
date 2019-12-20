@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ServerConnection {
-//    private static String serverIP = "10.131.168.166";
+    //    private static String serverIP = "10.131.168.166";
     private static String serverIP = "10.131.138.53";
     private static int serverPort = 12345;
 
@@ -368,6 +368,46 @@ public class ServerConnection {
 
         Thread thread = new Thread(gsi);
         thread.start();
+    }
+
+    public static void getRecommendedItems(final List<Item> itemList) {
+        Runnable gri = new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Socket socket = new Socket(serverIP, serverPort);
+                    DataInputStream in = new DataInputStream(socket.getInputStream());
+                    DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+                    byte[] buf = new byte[1024];
+
+                    // 发送控制信息: get recommends
+                    out.write("get recommends".getBytes("utf-8"));
+                    Arrays.fill(buf, (byte) 0);
+                    in.read(buf);
+
+                    // 服务器发送推荐的商品的个数
+                    out.write("null msg".getBytes("utf-8"));
+                    Arrays.fill(buf, (byte) 0);
+                    in.read(buf);
+                    int cnt = Integer.parseInt((new String(buf, "utf-8")).trim());
+
+                    // 接收这 cnt 个商品
+                    for (int i = 0; i < cnt; i++) {
+                        itemList.add(getAnItem(in, out, buf));
+                    }
+
+                } catch (Exception e) {
+                }
+            }
+        };
+
+        Thread thread = new Thread(gri);
+        thread.start();
+        try {
+            thread.join();
+        } catch (Exception e) {
+
+        }
     }
 }
 
