@@ -16,8 +16,8 @@ import java.util.List;
 
 public class ShoppingCartActivity extends AppCompatActivity {
 
-    private List<Item> cartList = new ArrayList<Item>();
-
+    public static List<Item> cartList = new ArrayList<Item>();
+    private static int i = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,35 +58,29 @@ public class ShoppingCartActivity extends AppCompatActivity {
         });
 
         // TODO initItems() 应该与数据库交互, 获取用户添加到购物车中的数据
-        initItems(); // 初始化水果数据
+        if(i==0) {
+            //initItems();  // 初始化水果数据
+            i++;
+        }
 
         ItemAdapter adapter = new ItemAdapter(ShoppingCartActivity.this, R.layout.item, cartList);
-        ListView listView = (ListView) findViewById(R.id.cart_list);
+        final ListView listView = (ListView) findViewById(R.id.cart_list);
         listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                ItemInformation.item = cartList.get(position);  // 设置要显示的 item
+                startActivity(new Intent(ShoppingCartActivity.this, ItemInformation.class));
+            }
+        });
     }
 
     private void initItems() {
         for (int i = 0; i < 2; i++) {
             Item apple = new Item("Apple", R.drawable.apple_pic);
             cartList.add(apple);
-            Item banana = new Item("Banana", R.drawable.banana_pic);
-            cartList.add(banana);
-            Item orange = new Item("Orange", R.drawable.orange_pic);
-            cartList.add(orange);
-            Item watermelon = new Item("Watermelon", R.drawable.watermelon_pic);
-            cartList.add(watermelon);
-            Item pear = new Item("Pear", R.drawable.pear_pic);
-            cartList.add(pear);
-            Item grape = new Item("Grape", R.drawable.grape_pic);
-            cartList.add(grape);
-            Item pineapple = new Item("Pineapple", R.drawable.pineapple_pic);
-            cartList.add(pineapple);
-            Item strawberry = new Item("Strawberry", R.drawable.strawberry_pic);
-            cartList.add(strawberry);
-            Item cherry = new Item("Cherry", R.drawable.cherry_pic);
-            cartList.add(cherry);
-            Item mango = new Item("Mango", R.drawable.mango_pic);
-            cartList.add(mango);
         }
     }
 }

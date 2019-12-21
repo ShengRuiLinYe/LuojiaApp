@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         final EditText search_name=(EditText)findViewById(R.id.search);//存储商品名字
+        ItemList.addAll(temp_item_array.ItemList);
         ServerConnection.getRecommendedItems(ItemList); // 初始化商品数据
         ItemAdapter adapter = new ItemAdapter(MainActivity.this, R.layout.item, ItemList);
         ListView listView = (ListView) findViewById(R.id.list_view);

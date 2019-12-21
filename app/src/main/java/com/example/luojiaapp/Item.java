@@ -3,6 +3,8 @@ package com.example.luojiaapp;
 import android.graphics.Bitmap;
 
 public class Item {
+    public static int flag_current = 0;
+    public int flag;
     private String name;
     private int imageId;
     private int imageId2;

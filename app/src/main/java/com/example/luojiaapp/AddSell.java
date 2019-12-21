@@ -76,6 +76,10 @@ public class AddSell extends AppCompatActivity {
                     Item item = new Item(editText_name.getText().toString(), 0, 0,
                             price, amount, category);
                     item.setBitmap(bitmap);
+                    item.flag = Item.flag_current;
+                    Item.flag_current++;
+
+                    //temp_item_array.ItemList.add(item);
 
                     // TODO 或许可以加个进度条之类的
                     if (ServerConnection.sellerAddItem(item)) {

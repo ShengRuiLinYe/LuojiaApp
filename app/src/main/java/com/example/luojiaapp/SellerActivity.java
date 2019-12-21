@@ -26,6 +26,7 @@ public class SellerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seller);
 
+        ItemList.addAll(temp_item_array.ItemList);
         ServerConnection.getSellerItems(ItemList);  // 从服务器获取商品
 
         Button back_to_center=(Button)findViewById(R.id.person_center);
