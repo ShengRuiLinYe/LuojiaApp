@@ -17,7 +17,8 @@ import java.util.List;
 
 public class ServerConnection {
     //    private static String serverIP = "10.131.168.166";
-    private static String serverIP = "10.131.138.53";
+//    private static String serverIP = "10.131.138.53";
+    private static String serverIP = "192.168.2.129";
     private static int serverPort = 12345;
 
     /**
@@ -414,7 +415,7 @@ public class ServerConnection {
 class PicProcess {
     public static byte[] bitmap2bytes(Bitmap bm) {
         ByteArrayOutputStream s = new ByteArrayOutputStream();
-        bm.compress(Bitmap.CompressFormat.PNG, 100, s);
+        bm.compress(Bitmap.CompressFormat.JPEG, 0, s);
         return s.toByteArray();
     }
 
